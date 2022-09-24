@@ -1,45 +1,27 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import TarjetaFruta from "./components/TarjetaFruta/TarjetaFruta";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import "./global.css";
 
-const noop = () => {
-
-}
-class Profile extends Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    bio: PropTypes.string.isRequired,
-    email: PropTypes.string,
-    age: PropTypes.number
-  }
-
-  static defaultProps = {
-    name: 'VWV',
-    onHello: noop
-  }
-  saluda = () => {
-    this.props.onHello()  
-  }
-  render() {
-    const { name, bio, email } = this.props
-    return(
-      <div>
-        <h1>{name}</h1>
-        <p>{bio}</p>
-        <a href={`mailto:${email}`}>{email}</a>
-        <button onClick={this.saluda}>Saluda</button>
-      </div>
-    )
-  }
-}
 
 class App extends Component {
+  state = {
+    user: {
+      name: 'V',
+      social: 'wax',
+      age: 20
+    }
+  }
   render() {
+    const {user} = this.state
+    const keys = Object.keys(user)
+    console.log(keys);
     return(
       <div>
-        <Profile  bio='idk' email='vj@'></Profile>
+        <ul>{keys.map( key => (
+          <li>{key}: {user[key]}</li>
+        ))}</ul>
       </div>
     )
   }
@@ -51,7 +33,6 @@ class App extends Component {
 //     )
 //   }
 // }
-
 // const App = () => {
 //   return(
 //     <div>
@@ -62,50 +43,70 @@ class App extends Component {
 
 export default App;
 
-class PortalModal extends Component{
-  render() 
-  {
-    if(!this.props.visible){
-      return null
+const noop = () => {};
+class Profile extends Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    bio: PropTypes.string.isRequired,
+    email: PropTypes.string,
+    age: PropTypes.number,
+  };
+
+  static defaultProps = {
+    name: "VWV",
+    onHello: noop,
+  };
+  saluda = () => {
+    this.props.onHello();
+  };
+  render() {
+    const { name, bio, email } = this.props;
+    return (
+      <div>
+        <h1>{name}</h1>
+        <p>{bio}</p>
+        <a href={`mailto:${email}`}>{email}</a>
+        <button onClick={this.saluda}>Saluda</button>
+      </div>
+    );
+  }
+}
+class PortalModal extends Component {
+  render() {
+    if (!this.props.visible) {
+      return null;
     }
     const styles = {
-      width: '100%',
-      height: '100%',
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      background: 'linear-gradient(to top right, #667eea, #764ba2)',
-      opacity: '0.95',
-      color: '#FFF'
-    }
-    return ReactDOM.createPortal((
+      width: "100%",
+      height: "100%",
+      position: "absolute",
+      top: "0",
+      left: "0",
+      background: "linear-gradient(to top right, #667eea, #764ba2)",
+      opacity: "0.95",
+      color: "#FFF",
+    };
+    return ReactDOM.createPortal(
       <div style={styles}>
         <h1>{this.props.children}</h1>
-      </div>
-    ), document.getElementById('modal-root'))
+      </div>,
+      document.getElementById("modal-root")
+    );
   }
 }
 const Computacion = () => (
- //React.Fragment equals <> 
- <React.Fragment>
-    <li>
-      Monitor
-    </li>
-    <li>
-      Mouse
-    </li>
+  //React.Fragment equals <>
+  <React.Fragment>
+    <li>Monitor</li>
+    <li>Mouse</li>
   </React.Fragment>
-)
+);
 const Ropa = () => (
   <React.Fragment>
-    <li>
-      Shorts
-    </li>
-    <li>
-      Skirt
-    </li>
+    <li>Shorts</li>
+    <li>Skirt</li>
   </React.Fragment>
-)
+);
 const Title = (uiColor, children) => {
   const styles = {
     padding: "0.3em",
@@ -213,6 +214,74 @@ class Contador extends Component {
     );
   }
 }
+
+// class App extends Component {
+//   state = {
+//     products: [
+//       {
+//         id: 1,
+//         name: "idk1",
+//         color: ["black", "green"],
+//         price: 10,
+//       },
+//       {
+//         id: 2,
+//         name: "idk2",
+//         color: ["black", "green"],
+//         price: 80,
+//       },
+//       {
+//         id: 3,
+//         name: "idk3",
+//         color: ["black", "green"],
+//         price: 60,
+//       },
+//     ],
+//   };
+//   render() {
+//     return (
+//       <div>
+//         {this.state.products.map((product) => {
+//           return (
+//             <div>
+//               ${product.price} - {product.name}
+//               <div>
+//                 {product.color.map((color) => {
+//                   return (
+//                     <span
+//                       style={{
+//                         width: "13px",
+//                         height: "13px",
+//                         borderRadius: "0.1em",
+//                         border: "1px solid gray",
+//                         display: "inline-block",
+//                         margin: "0.1em",
+//                         background: color,
+//                       }}
+//                     ></span>
+//                   );
+//                 })}
+//               </div>
+//             </div>
+//           );
+//         })}
+//       </div>
+//     );
+//   }
+// }
+// class App extends Component {
+//   render() {
+//     return(
+//       <div>
+//       <ul>
+//         {frutas.map((fruta) => {
+//           return (<li>{fruta}</li>)
+//         })}
+//       </ul>
+//       </div>
+//     )
+//   }
+// }
 // class App extends Component {
 //   state = {
 //     visible: false,
@@ -243,7 +312,7 @@ class Contador extends Component {
 //         <button onClick={this.cerrar}>Cerrar</button>
 //           Hey, desde un portal { this.state.num}
 //         </PortalModal>
-        
+
 //       </div>
 //     )
 //   }
